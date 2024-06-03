@@ -2,6 +2,7 @@ package id.my.hendisantika.sqsexample.listener;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import id.my.hendisantika.sqsexample.dto.OrderDto;
+import id.my.hendisantika.sqsexample.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.aws.messaging.listener.SqsMessageDeletionPolicy;
