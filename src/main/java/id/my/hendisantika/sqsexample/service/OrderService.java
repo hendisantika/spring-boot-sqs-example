@@ -30,23 +30,22 @@ public class OrderService {
     private final SqsMessageProducer producer;
 
     public void processOrder(OrderDto orderDto) {
-        log.debug(" {} Process order from queue {} {}", orderDto);
+        log.info(" {} Process order from queue {} {}", orderDto);
         /*
         do the good order processing logic here
         not going to do that here, thats not the point of this demo app
-
          */
     }
 
     public OrderDto placeOrder(OrderDto orderDto) {
-        log.debug(" {} Place order {} {}", orderDto);
+        log.info("Place order {}", orderDto);
         orderDto.setOrderId(UUID.randomUUID());
         orderDto.setOrderDate(new Date());
 
         Map<String, Object> headers = new HashMap<>();
         headers.put("Message-Type", MessageType.ORDER.name());
         headers.put("Content-Type", MediaType.APPLICATION_JSON_VALUE);
-        log.debug("{} Send message to Queue {} ");
+        log.info("Send message to Queue");
         this.producer.send(orderDto, headers);
         return orderDto;
     }
