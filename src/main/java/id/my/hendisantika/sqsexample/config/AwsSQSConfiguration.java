@@ -11,6 +11,8 @@ import org.springframework.cloud.aws.messaging.core.QueueMessagingTemplate;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.core.task.AsyncTaskExecutor;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 /**
  * Created by IntelliJ IDEA.
@@ -58,4 +60,13 @@ public class AwsSQSConfiguration {
         return factory;
     }
 
+    protected AsyncTaskExecutor createDefaultTaskExecutor() {
+        ThreadPoolTaskExecutor threadPoolTaskExecutor = new ThreadPoolTaskExecutor();
+        threadPoolTaskExecutor.setThreadNamePrefix("SQSExecutor - ");
+        threadPoolTaskExecutor.setCorePoolSize(100);
+        threadPoolTaskExecutor.setMaxPoolSize(100);
+        threadPoolTaskExecutor.setQueueCapacity(2);
+        threadPoolTaskExecutor.afterPropertiesSet();
+        return threadPoolTaskExecutor;
+    }
 }
