@@ -1,5 +1,7 @@
 package id.my.hendisantika.sqsexample.config;
 
+import com.amazonaws.auth.AWSCredentialsProvider;
+import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
 import com.amazonaws.services.sqs.AmazonSQSAsync;
 import com.amazonaws.services.sqs.AmazonSQSAsyncClientBuilder;
 import org.springframework.beans.factory.annotation.Value;
@@ -32,6 +34,11 @@ public class AwsSQSConfiguration {
                 .withCredentials(credentialsProvider())
                 .withRegion(awsRegion)
                 .build();
+    }
+
+    @Bean
+    public AWSCredentialsProvider credentialsProvider() {
+        return new DefaultAWSCredentialsProviderChain();
     }
 
 }
