@@ -1,0 +1,17 @@
+spring.application.name: spring-boot-sqs-example
+server:
+  servlet:
+    context-path: /api
+
+orders:
+  queue:
+    name: Order
+
+cloud:
+  aws:
+    region: ap-southeast-1
+
+logging:
+  level:
+    id.my.hendisantika.sqsexample: DEBUG
+    org.springframework.web.filter.CommonsRequestLoggingFilter: DEBUG
