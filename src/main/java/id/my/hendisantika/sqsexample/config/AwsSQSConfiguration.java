@@ -1,8 +1,12 @@
 package id.my.hendisantika.sqsexample.config;
 
+import com.amazonaws.services.sqs.AmazonSQSAsync;
+import com.amazonaws.services.sqs.AmazonSQSAsyncClientBuilder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.aws.messaging.config.annotation.EnableSqs;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 
 /**
  * Created by IntelliJ IDEA.
@@ -21,5 +25,13 @@ public class AwsSQSConfiguration {
     @Value("${cloud.aws.region:ap-southeast-1}")
     private String awsRegion;
 
+    @Bean
+    @Primary
+    public AmazonSQSAsync amazonSQSAsync() {
+        return AmazonSQSAsyncClientBuilder.standard()
+                .withCredentials(credentialsProvider())
+                .withRegion(awsRegion)
+                .build();
+    }
 
 }
