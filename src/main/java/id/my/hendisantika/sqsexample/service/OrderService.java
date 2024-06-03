@@ -1,5 +1,6 @@
 package id.my.hendisantika.sqsexample.service;
 
+import id.my.hendisantika.sqsexample.dto.OrderDto;
 import id.my.hendisantika.sqsexample.producer.SqsMessageProducer;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,4 +21,13 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class OrderService {
     private final SqsMessageProducer producer;
+
+    public void processOrder(OrderDto orderDto) {
+        log.debug(" {} Process order from queue {} {}", orderDto);
+        /*
+        do the good order processing logic here
+        not going to do that here, thats not the point of this demo app
+
+         */
+    }
 }
