@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.aws.messaging.core.QueueMessagingTemplate;
 import org.springframework.stereotype.Component;
 
+import java.util.Map;
+
 /**
  * Created by IntelliJ IDEA.
  * Project : spring-boot-sqs-example
@@ -25,4 +27,15 @@ public class SqsMessageProducer {
 
     @Value("${orders.queue.name}")
     private String ordersQ;
+
+    public <T> void send(T message, Map<String, Object> headers) {
+        if (message == null) {
+            log.warn("SQS Producer cant produce 'null' value");
+            return;
+        }
+
+        log.debug(" Message {}", message);
+        log.debug(" Queue name {}", ordersQ);
+        queueMessagingTemplate.convertAndSend(ordersQ, message, headers);
+    }
 }
